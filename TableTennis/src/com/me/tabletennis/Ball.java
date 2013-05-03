@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * ball.
  */
 public class Ball {
+	Body body;
 	/*
 	 * The constructor that requires the world in which to
 	 * add the ball and the position where it starts.
@@ -28,7 +29,7 @@ public class Ball {
 		bodyDef.position.set(position.x, position.y);
 
 		// Add the body to the world
-		Body body = world.createBody(bodyDef);
+		body = world.createBody(bodyDef);
 
 		// Define the shape and characteristics of the ball
 		CircleShape circle = new CircleShape();
@@ -44,5 +45,9 @@ public class Ball {
 		
 		// Clean up
 		circle.dispose();
+	}
+	
+	public void gravity() {
+		body.applyForce(new Vector2(0, -0.5f), body.getWorldCenter(), true);
 	}
 }

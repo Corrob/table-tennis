@@ -21,19 +21,19 @@ public class Table {
 	 * @param height The height of the table
 	 */
 	public Table(World world, Vector2 center, float width, float height) {
-		// Create the body defintion of the table
-		BodyDef groundBodyDef =new BodyDef();  
-		groundBodyDef.position.set(center);  
+		// Create the body definition of the table
+		BodyDef tableDef =new BodyDef();  
+		tableDef.position.set(center);  
 
 		// Add the body to the world
-		Body groundBody = world.createBody(groundBodyDef);  
+		Body tableBody = world.createBody(tableDef);  
 
 		// Define the shape of the table
-		PolygonShape groundBox = new PolygonShape();  
-		groundBox.setAsBox(width / 2, height / 2);
-		groundBody.createFixture(groundBox, 0.0f); 
+		PolygonShape tableBox = new PolygonShape();  
+		tableBox.setAsBox(width / 2, height / 2);
+		tableBody.createFixture(tableBox, 0.0f); 
 		
 		// Clean up
-		groundBox.dispose();
+		tableBox.dispose();
 	}
 }
