@@ -1,6 +1,6 @@
 package com.me.tabletennis.client;
 
-import com.me.tabletennis.TableTenis;
+import com.me.tabletennis.TableTennis;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +14,6 @@ public class GwtLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener getApplicationListener () {
-		return new TableTenis();
+		return new TableTennis();
 	}
 }

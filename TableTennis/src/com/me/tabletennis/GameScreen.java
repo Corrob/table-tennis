@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
  * while checking for input and rendering output.
  */
 public class GameScreen implements Screen{
-	TableTenis game;
+	TableTennis game;
 	OrthographicCamera camera;
 	World world;
 	Box2DDebugRenderer debugRenderer;
@@ -28,7 +28,7 @@ public class GameScreen implements Screen{
 	 * 
 	 * @param game The game that maintains the screens.
 	 */
-	GameScreen(TableTenis game) {
+	GameScreen(TableTennis game) {
 		this.game = game;
 		
 		camera = new OrthographicCamera();
