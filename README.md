@@ -7,4 +7,4 @@ The goal is to have:
 - Side perspective view
 - Realistic physics
 - Single player mode with easy, medium, and hard difficulties
-- Two player mode for android where both paddles can be controlled
+- Unique paddle control with both movement and angle
