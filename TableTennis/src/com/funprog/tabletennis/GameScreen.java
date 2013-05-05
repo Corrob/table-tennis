@@ -37,7 +37,7 @@ public class GameScreen implements Screen{
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 10, 5);
-		world = new World(new Vector2(0, 0), true);
+		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
 		ball = new Ball(world, new Vector2(8, 3));
@@ -69,7 +69,7 @@ public class GameScreen implements Screen{
 			rightPad.stop();
 		}
 		
-		ball.gravity();
+		//ball.gravity();
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
