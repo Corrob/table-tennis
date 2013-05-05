@@ -43,26 +43,33 @@ public class GameScreen implements Screen{
 		ball = new Ball(world, new Vector2(2, 3));
 		ball.stop(); // Don't let gravity affect the ball initially.
 		
-		table = new Table(world, new Vector2(5, 1), 8, 0.1f);
-		tableVertical = new Table(world, new Vector2(9, 4), 0.1f, 6);
+		table = new Table(world, new Vector2(5, 1.5f), 8, 0.1f);
+		tableVertical = new Table(world, new Vector2(9, 4.5f), 0.1f, 6);
 		
 		leftPad = new Paddle(world, new Vector2(1, 2));
 	}
 	
+	/**
+	 * Checks for input and renders the world.
+	 * @param delta
+	 */
 	@Override
 	public void render(float delta) {
 		// Clear screen with black
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
+		// Loop through each touch input
 		for (int i = 0; Gdx.input.isTouched(i); i++) {
 			touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
-			camera.unproject(touchPos);
+			camera.unproject(touchPos); // Make the touch input into camera coords
 			
-			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y));
+			// Offset y to ease android use
+			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
 		}
 		
+		// Stop the paddle if there is no input
 		if (!Gdx.input.isTouched()) {
 			leftPad.stop();
 		}
