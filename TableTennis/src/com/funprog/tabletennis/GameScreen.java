@@ -22,7 +22,6 @@ public class GameScreen implements Screen{
 	Ball ball;
 	Table table;
 	Paddle leftPad;
-	Paddle rightPad;
 	Vector3 touchPos;
 	
 	/*
@@ -43,7 +42,6 @@ public class GameScreen implements Screen{
 		ball = new Ball(world, new Vector2(8, 3));
 		table = new Table(world, new Vector2(5, 1), 8, 0.1f);
 		leftPad = new Paddle(world, new Vector2(1, 2));
-		rightPad = new Paddle(world, new Vector2(9, 2));
 	}
 	
 	@Override
@@ -59,14 +57,11 @@ public class GameScreen implements Screen{
 			
 			if (touchPos.x < 5) {
 				leftPad.moveToward(new Vector2(touchPos.x, touchPos.y));
-			} else {
-				rightPad.moveToward(new Vector2(touchPos.x, touchPos.y));
-			}
+			} 
 		}
 		
 		if (!Gdx.input.isTouched()) {
 			leftPad.stop();
-			rightPad.stop();
 		}
 		
 		ball.gravity();
