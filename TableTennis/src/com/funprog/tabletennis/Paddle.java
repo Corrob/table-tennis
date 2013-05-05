@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 * move.
 */
 public class Paddle {
-	private static float SPEED = 3;
+	private static float SPEED = 4;
 	private Body body;
 	
 	/**
@@ -28,6 +28,7 @@ public class Paddle {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.KinematicBody;
 		bodyDef.position.set(position.x, position.y);
+		bodyDef.angle = 0.2f; // Offset the angle to allow hitting the ball up
 		
 		// Add the body to the world
 		body = world.createBody(bodyDef);
@@ -39,8 +40,8 @@ public class Paddle {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = paddleShape;
 		fixtureDef.density = 0.9f;
-		fixtureDef.friction = 0.8f;
-		fixtureDef.restitution = 0.1f;
+		fixtureDef.friction = 0.5f;
+		fixtureDef.restitution = 0.7f;
 		
 		body.createFixture(fixtureDef);
 		
@@ -54,8 +55,15 @@ public class Paddle {
 	 */
 	public void moveToward(Vector2 point) {
 		Vector2 dir = point.sub(body.getWorldCenter());
-		dir = dir.scl(SPEED / dir.len());
-		body.setLinearVelocity(dir);
+		float distAway = dir.len();
+		
+		// Check if the paddle is far enough from the point
+		if (distAway > 0.1f) {
+			dir = dir.scl(SPEED / dir.len());
+			body.setLinearVelocity(dir);
+		} else { // Otherwise it is close enough
+			stop();
+		}
 	}
 	
 	/**

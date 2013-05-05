@@ -38,12 +38,28 @@ public class Ball {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
 		fixtureDef.density = 0.5f;
-		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.8f;
-		
+		fixtureDef.friction = 0.7f;
+		fixtureDef.restitution = 0.9f;
+	
 		body.createFixture(fixtureDef);
 		
 		// Clean up
 		circle.dispose();
+	}
+	
+	/**
+	 * Stops the ball from moving.
+	 */
+	public void stop() {
+		body.setAwake(false);
+	}
+	
+	/**
+	 * Sets the position of the ball to x and y.
+	 * @param x The x position (left-right)
+	 * @param y The y position (up-down)
+	 */
+	public void setPosition(float x, float y) {
+		body.setTransform(x, y, body.getAngle());
 	}
 }

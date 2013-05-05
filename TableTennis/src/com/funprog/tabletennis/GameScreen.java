@@ -40,9 +40,12 @@ public class GameScreen implements Screen{
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
 		
-		ball = new Ball(world, new Vector2(8, 3));
+		ball = new Ball(world, new Vector2(2, 3));
+		ball.stop(); // Don't let gravity affect the ball initially.
+		
 		table = new Table(world, new Vector2(5, 1), 8, 0.1f);
-		tableVertical = new Table(world, new Vector2(9, 2.5f), 0.1f, 3);
+		tableVertical = new Table(world, new Vector2(9, 4), 0.1f, 6);
+		
 		leftPad = new Paddle(world, new Vector2(1, 2));
 	}
 	
@@ -57,9 +60,7 @@ public class GameScreen implements Screen{
 			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
 			camera.unproject(touchPos);
 			
-			if (touchPos.x < 5) {
-				leftPad.moveToward(new Vector2(touchPos.x, touchPos.y));
-			} 
+			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y));
 		}
 		
 		if (!Gdx.input.isTouched()) {
