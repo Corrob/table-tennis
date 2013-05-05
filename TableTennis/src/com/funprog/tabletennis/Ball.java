@@ -8,14 +8,14 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-/*
+/**
 * The Ball class maintains a sprite and body for a ball
 * and provides information and methods for a table tennis
 * ball.
 */
 public class Ball {
-	Body body;
-	/*
+	private Body body;
+	/**
 	* The constructor that requires the world in which to
 	* add the ball and the position where it starts.
 	*
@@ -45,9 +45,5 @@ public class Ball {
 		
 		// Clean up
 		circle.dispose();
-	}
-	
-	public void gravity() {
-		body.applyForce(new Vector2(0, -0.5f), body.getWorldCenter(), true);
 	}
 }

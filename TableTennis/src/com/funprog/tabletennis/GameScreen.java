@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-/*
+/**
 * The GameScreen class is the screen where the main game play
 * elements occur. It brings together the ball, paddle, and table
 * while checking for input and rendering output.
@@ -25,7 +25,7 @@ public class GameScreen implements Screen{
 	Paddle leftPad;
 	Vector3 touchPos;
 	
-	/*
+	/**
 	* Constructor that initializes the variables and takes
 	* the game as an argument to have the ability to change
 	* screens.
@@ -65,8 +65,6 @@ public class GameScreen implements Screen{
 		if (!Gdx.input.isTouched()) {
 			leftPad.stop();
 		}
-		
-		//ball.gravity();
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);

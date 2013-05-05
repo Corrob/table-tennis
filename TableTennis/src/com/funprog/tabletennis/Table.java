@@ -6,17 +6,17 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-/*
+/**
 * The table class creates a static body in the world
 * at the defined location.
 */
 public class Table {
-	/*
+	/**
 	* Construct that will add the table to the world with the specified
 	* dimensions.
 	*
 	* @param world The world where the table is to be added
-	* @param center Then center of the table
+	* @param center The center of the table
 	* @param width The width of the table
 	* @param height The height of the table
 	*/

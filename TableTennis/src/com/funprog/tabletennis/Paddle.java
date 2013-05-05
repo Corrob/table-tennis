@@ -8,14 +8,16 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-/*
+/**
 * The Paddle class combines a body and sprite to form
 * a table tennis paddle. It also provides methods to
 * move.
 */
 public class Paddle {
-	Body body;
-	/*
+	private static float SPEED = 3;
+	private Body body;
+	
+	/**
 	* Constructor that creates a body and sprite for the paddle
 	*
 	* @param world The world in which to add the paddle
@@ -46,13 +48,19 @@ public class Paddle {
 		paddleShape.dispose();
 	}
 	
+	/**
+	 * Moves the paddle toward the point
+	 * @param point The point for the paddle to move
+	 */
 	public void moveToward(Vector2 point) {
 		Vector2 dir = point.sub(body.getWorldCenter());
-		dir = dir.scl(3f / dir.len());
-		//body.applyForce(dir, body.getWorldCenter(), true);
+		dir = dir.scl(SPEED / dir.len());
 		body.setLinearVelocity(dir);
 	}
 	
+	/**
+	 * Stops the paddle from moving.
+	 */
 	public void stop() {
 		body.setAwake(false);
 	}
