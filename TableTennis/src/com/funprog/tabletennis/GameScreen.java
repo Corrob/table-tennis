@@ -21,6 +21,7 @@ public class GameScreen implements Screen{
 	Box2DDebugRenderer debugRenderer;
 	Ball ball;
 	Table table;
+	Table tableVertical;
 	Paddle leftPad;
 	Vector3 touchPos;
 	
@@ -41,6 +42,7 @@ public class GameScreen implements Screen{
 		
 		ball = new Ball(world, new Vector2(8, 3));
 		table = new Table(world, new Vector2(5, 1), 8, 0.1f);
+		tableVertical = new Table(world, new Vector2(9, 2.5f), 0.1f, 3);
 		leftPad = new Paddle(world, new Vector2(1, 2));
 	}
 	
