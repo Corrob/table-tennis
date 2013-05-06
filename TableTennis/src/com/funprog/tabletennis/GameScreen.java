@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -16,14 +19,20 @@ import com.badlogic.gdx.math.Vector3;
 */
 public class GameScreen implements Screen{
 	TableTennis game;
+	
 	OrthographicCamera camera;
 	World world;
 	Box2DDebugRenderer debugRenderer;
+	SpriteBatch spriteBatch;
+	
 	Ball ball;
 	Table table;
 	Table tableVertical;
 	Paddle leftPad;
+	
 	Vector3 touchPos;
+	
+	Button resetBall;
 	
 	/**
 	* Constructor that initializes the variables and takes
@@ -39,6 +48,7 @@ public class GameScreen implements Screen{
 		camera.setToOrtho(false, 10, 5);
 		world = new World(new Vector2(0, -10), true);
 		debugRenderer = new Box2DDebugRenderer();
+		spriteBatch = new SpriteBatch();
 		
 		ball = new Ball(world, new Vector2(2, 3));
 		ball.stop(); // Don't let gravity affect the ball initially.
@@ -47,6 +57,9 @@ public class GameScreen implements Screen{
 		tableVertical = new Table(world, new Vector2(9, 4.5f), 0.1f, 6);
 		
 		leftPad = new Paddle(world, new Vector2(1, 2));
+		
+		resetBall = new Button(new Texture(Gdx.files.internal("resetBall.png")), 
+				new Rectangle(4, 0, 2, 1));
 	}
 	
 	/**
@@ -65,6 +78,11 @@ public class GameScreen implements Screen{
 		world.step(delta, 8, 3);
 		
 		debugRenderer.render(world, camera.combined);
+		
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		resetBall.draw(spriteBatch);
+		spriteBatch.end();
 	}
 	
 	@Override
@@ -103,6 +121,11 @@ public class GameScreen implements Screen{
 			
 			// Offset y to ease android use
 			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
+			
+			if (resetBall.isTouched(touchPos.x, touchPos.y)) {
+				ball.setPosition(2, 3);
+				ball.stop();
+			}
 		}
 		
 		// Stop the paddle if there is no input
