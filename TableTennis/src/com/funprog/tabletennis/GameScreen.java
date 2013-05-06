@@ -59,20 +59,7 @@ public class GameScreen implements Screen{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		// Loop through each touch input
-		for (int i = 0; Gdx.input.isTouched(i); i++) {
-			touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
-			camera.unproject(touchPos); // Make the touch input into camera coords
-			
-			// Offset y to ease android use
-			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
-		}
-		
-		// Stop the paddle if there is no input
-		if (!Gdx.input.isTouched()) {
-			leftPad.stop();
-		}
+		getInput();
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
@@ -102,5 +89,25 @@ public class GameScreen implements Screen{
 	
 	@Override
 	public void dispose() {
+	}
+	
+	/**
+	 * Checks the touch screen and keyboard, then responds
+	 */
+	private void getInput() {
+		// Loop through each touch input
+		for (int i = 0; Gdx.input.isTouched(i); i++) {
+			touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
+			camera.unproject(touchPos); // Make the touch input into camera coords
+			
+			// Offset y to ease android use
+			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
+		}
+		
+		// Stop the paddle if there is no input
+		if (!Gdx.input.isTouched()) {
+			leftPad.stop();
+		}
 	}
 }
