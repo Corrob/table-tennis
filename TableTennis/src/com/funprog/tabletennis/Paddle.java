@@ -14,7 +14,9 @@ import com.badlogic.gdx.physics.box2d.World;
 * move.
 */
 public class Paddle {
-	private static float SPEED = 4;
+	private static final float SPEED = 4; // meters per second
+	private static final float ANG_SPEED = 3; // radians per second
+	
 	private Body body;
 	
 	/**
@@ -62,14 +64,35 @@ public class Paddle {
 			dir = dir.scl(SPEED / dir.len());
 			body.setLinearVelocity(dir);
 		} else { // Otherwise it is close enough
-			stop();
+			stopMoving();
 		}
 	}
 	
 	/**
 	 * Stops the paddle from moving.
 	 */
-	public void stop() {
-		body.setAwake(false);
+	public void stopMoving() {
+		body.setLinearVelocity(Vector2.Zero);
+	}
+	
+	/**
+	 * Stops the paddle from rotating.
+	 */
+	public void stopRotating() {
+		body.setAngularVelocity(0);
+	}
+	
+	/**
+	 * Rotates the paddle clockwise at a preset angular speed.
+	 */
+	public void rotateClockwise() {
+		body.setAngularVelocity(-ANG_SPEED);
+	}
+	
+	/**
+	 * Rotates the paddle counter-clockwise at a preset angular speed.
+	 */
+	public void rotateCounterClockwise() {
+		body.setAngularVelocity(ANG_SPEED);
 	}
 }

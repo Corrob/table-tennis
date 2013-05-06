@@ -1,6 +1,7 @@
 package com.funprog.tabletennis;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -123,6 +124,7 @@ public class GameScreen implements Screen{
 			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
 			
 			if (resetBall.isTouched(touchPos.x, touchPos.y)) {
+				// Move the ball to its starting position and stop it
 				ball.setPosition(2, 3);
 				ball.stop();
 			}
@@ -130,7 +132,16 @@ public class GameScreen implements Screen{
 		
 		// Stop the paddle if there is no input
 		if (!Gdx.input.isTouched()) {
-			leftPad.stop();
+			leftPad.stopMoving();
+		}
+		
+		// Check for keyboard input
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			leftPad.rotateCounterClockwise();
+		} else if (Gdx.input.isKeyPressed(Keys.D)) {
+			leftPad.rotateClockwise();
+		} else {
+			leftPad.stopRotating();
 		}
 	}
 }
