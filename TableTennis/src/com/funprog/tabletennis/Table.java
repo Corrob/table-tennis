@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 */
 public class Table {
 	/**
-	* Construct that will add the table to the world with the specified
+	* Constructor that will add the table to the world with the specified
 	* dimensions.
 	*
 	* @param world The world where the table is to be added

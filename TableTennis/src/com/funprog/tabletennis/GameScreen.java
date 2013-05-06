@@ -97,7 +97,7 @@ public class GameScreen implements Screen{
 	private void getInput() {
 		// Loop through each touch input
 		for (int i = 0; Gdx.input.isTouched(i); i++) {
-			touchPos = new Vector3();
+			touchPos = new Vector3(); // 3d vector used for camera.unproject
 			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
 			camera.unproject(touchPos); // Make the touch input into camera coords
 			
