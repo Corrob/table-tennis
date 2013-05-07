@@ -21,7 +21,7 @@ public class RotateTool extends ControlTool {
 	}
 	
 	/**
-	 * Updates the too based on user input by rotating the image
+	 * Updates the tool based on user input by rotating the image
 	 * so that its top is always facing the touch
 	 * @param x The x value of the touch
 	 * @param y The y value of the touch
