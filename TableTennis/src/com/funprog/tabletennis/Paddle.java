@@ -95,4 +95,20 @@ public class Paddle {
 	public void rotateCounterClockwise() {
 		body.setAngularVelocity(ANG_SPEED);
 	}
+	
+	/**
+	 * Returns the current angle of the paddle
+	 * @return The angle in radians
+	 */
+	public float getRotation() {
+		return body.getAngle();
+	}
+	
+	/**
+	 * Sets the rotation of the paddle
+	 * @param angle The angle to set the paddle to in radians
+	 */
+	public void setRotation(float angle) {
+		body.setTransform(body.getPosition(), angle);
+	}
 }

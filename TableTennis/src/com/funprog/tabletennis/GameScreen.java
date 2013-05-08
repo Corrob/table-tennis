@@ -33,7 +33,8 @@ public class GameScreen implements Screen{
 	
 	Vector3 touchPos;
 	
-	Button resetBall;
+	ControlTool resetBall;
+	RotateTool rotate;
 	
 	/**
 	* Constructor that initializes the variables and takes
@@ -46,8 +47,8 @@ public class GameScreen implements Screen{
 		this.game = game;
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 10, 5);
-		world = new World(new Vector2(0, -10), true);
+		camera.setToOrtho(false, 10, 5); // Create dimensions of world to 10 by 5
+		world = new World(new Vector2(0, -10), true); // Create world with gravity
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
 		
@@ -59,8 +60,10 @@ public class GameScreen implements Screen{
 		
 		leftPad = new Paddle(world, new Vector2(1, 2));
 		
-		resetBall = new Button(new Texture(Gdx.files.internal("resetBall.png")), 
+		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4, 0, 2, 1));
+		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
+				new Rectangle(8.6f, 0, 1.4f, 1.4f));
 	}
 	
 	/**
@@ -82,7 +85,10 @@ public class GameScreen implements Screen{
 		
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
+		
 		resetBall.draw(spriteBatch);
+		rotate.draw(spriteBatch);
+		
 		spriteBatch.end();
 	}
 	
@@ -120,17 +126,26 @@ public class GameScreen implements Screen{
 			touchPos.set(Gdx.input.getX(i), Gdx.input.getY(i), 0);
 			camera.unproject(touchPos); // Make the touch input into camera coords
 			
-			// Offset y to ease android use
-			leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
-			
 			if (resetBall.isTouched(touchPos.x, touchPos.y)) {
 				// Move the ball to its starting position and stop it
 				ball.setPosition(2, 3);
 				ball.stop();
+			} else if (rotate.isTouched(touchPos.x, touchPos.y)) {
+				// Update the rotation image
+				rotate.updateTouch(touchPos.x, touchPos.y);
+				
+				// Sync the paddle with the rotation tool
+				leftPad.setRotation(rotate.getRotation());
+			} else if (touchPos.x < 8) {
+				// Move the paddle
+				// Offset y to ease android use
+				leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
+			} else { // Otherwise don't do anything
+				leftPad.stopMoving();
 			}
 		}
 		
-		// Stop the paddle if there is no input
+		// If no input, stop moving
 		if (!Gdx.input.isTouched()) {
 			leftPad.stopMoving();
 		}
@@ -138,8 +153,14 @@ public class GameScreen implements Screen{
 		// Check for keyboard input
 		if (Gdx.input.isKeyPressed(Keys.A)) {
 			leftPad.rotateCounterClockwise();
+			
+			// Sync the changing rotation with touch rotation
+			rotate.setRotation(leftPad.getRotation());
 		} else if (Gdx.input.isKeyPressed(Keys.D)) {
 			leftPad.rotateClockwise();
+			
+			// Sync the changing rotation with touch rotation
+			rotate.setRotation(leftPad.getRotation());
 		} else {
 			leftPad.stopRotating();
 		}
