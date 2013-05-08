@@ -1,14 +1,19 @@
 package com.funprog.tabletennis;
 
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -58,7 +63,8 @@ public class GameScreen implements Screen{
 		table = new Table(world, new Vector2(5, 1.5f), 8, 0.1f);
 		tableVertical = new Table(world, new Vector2(9, 4.5f), 0.1f, 6);
 		
-		leftPad = new Paddle(world, new Vector2(1, 2));
+		leftPad = new Paddle(world, new Vector2(1, 2), 
+				new Texture(Gdx.files.internal("paddle.png")));
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4, 0, 2, 1));
@@ -88,6 +94,21 @@ public class GameScreen implements Screen{
 		
 		resetBall.draw(spriteBatch);
 		rotate.draw(spriteBatch);
+		
+		Iterator<Body> bi = world.getBodies();
+        
+		while (bi.hasNext()){
+		    Body b = bi.next();
+		    
+		    Sprite spr = (Sprite) b.getUserData();
+
+		    if (spr != null) {
+		        spr.setPosition(b.getPosition().x - spr.getOriginX(),
+		        		b.getPosition().y - spr.getOriginY());
+		        spr.setRotation(MathUtils.radiansToDegrees * b.getAngle());
+		        spr.draw(spriteBatch);
+		    }
+		}
 		
 		spriteBatch.end();
 	}
