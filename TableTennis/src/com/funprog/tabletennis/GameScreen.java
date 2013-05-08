@@ -57,7 +57,7 @@ public class GameScreen implements Screen{
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
 		
-		ball = new Ball(world, new Vector2(2, 3));
+		ball = new Ball(world, new Vector2(2, 3), new Texture(Gdx.files.internal("ball.png")));
 		ball.stop(); // Don't let gravity affect the ball initially.
 		
 		table = new Table(world, new Vector2(5, 1.5f), 8, 0.1f);

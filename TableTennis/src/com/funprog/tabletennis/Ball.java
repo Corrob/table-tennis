@@ -1,5 +1,7 @@
 package com.funprog.tabletennis;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -14,7 +16,10 @@ import com.badlogic.gdx.physics.box2d.World;
 * ball.
 */
 public class Ball {
+	private static final float RADIUS = 0.1f;
 	private Body body;
+	private Sprite sprite;
+	
 	/**
 	* The constructor that requires the world in which to
 	* add the ball and the position where it starts.
@@ -22,7 +27,7 @@ public class Ball {
 	* @param world The world to add the ball
 	* @param position The position where the ball starts
 	*/
-	public Ball(World world, Vector2 position) {
+	public Ball(World world, Vector2 position, Texture texture) {
 		// Create the body definition
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -45,6 +50,14 @@ public class Ball {
 		
 		// Clean up
 		circle.dispose();
+		
+		sprite = new Sprite(texture);
+		
+		sprite.setSize(RADIUS * 4, RADIUS * 4);
+		// Put the sprite's origin in the middle to ease rotation
+		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
+		
+		body.setUserData(sprite);
 	}
 	
 	/**
