@@ -87,14 +87,18 @@ public class GameScreen implements Screen{
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
 		
+		// Draw the box2d bodies for debugging
 		debugRenderer.render(world, camera.combined);
 		
+		// Draw all the sprites
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 		
+		// Draw the tools
 		resetBall.draw(spriteBatch);
 		rotate.draw(spriteBatch);
 		
+		// Draw the sprites of all the bodies
 		Iterator<Body> bi = world.getBodies();
         
 		while (bi.hasNext()){
