@@ -169,17 +169,7 @@ public class GameScreen implements Screen{
 			} else if (movement.isTouched(touchPos.x, touchPos.y)) {
 				// Move the paddle and update the movement image
 				movement.updateTouch(touchPos.x, touchPos.y, leftPad);
-			} else { // Otherwise don't do anything
-				movement.repositionBall();
-				leftPad.stopMoving();
 			}
-			//movement.repositionBall();
-		}
-		
-		// If no input, stop moving
-		if (!Gdx.input.isTouched()) {
-			movement.repositionBall();
-			leftPad.stopMoving();
 		}
 		
 		// Check for keyboard input
