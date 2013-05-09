@@ -88,13 +88,6 @@ public class GameScreen implements Screen{
 		
 		getInput();
 		
-		// If the inside circle of the movement tool is out of bounds, return it
-		// to its center position.
-		if (movement.isOutOfBounds()) {
-			movement.stopMovingBall();
-			movement.repositionBall();
-		}
-		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
 		
@@ -174,14 +167,9 @@ public class GameScreen implements Screen{
 				// Sync the paddle with the rotation tool
 				leftPad.setRotation(rotate.getRotation());
 			} else if (movement.isTouched(touchPos.x, touchPos.y)) {
-				// Move the paddle
+				// Move the paddle and update the movement image
 				movement.updateTouch(touchPos.x, touchPos.y, leftPad);
-			} /*else if (touchPos.x < 8) {
-				// Move the paddle
-				// Offset y to ease android use
-				leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
-			}*/ else { // Otherwise don't do anything
-				movement.stopMovingBall();
+			} else { // Otherwise don't do anything
 				movement.repositionBall();
 				leftPad.stopMoving();
 			}
@@ -190,7 +178,6 @@ public class GameScreen implements Screen{
 		
 		// If no input, stop moving
 		if (!Gdx.input.isTouched()) {
-			movement.stopMovingBall();
 			movement.repositionBall();
 			leftPad.stopMoving();
 		}

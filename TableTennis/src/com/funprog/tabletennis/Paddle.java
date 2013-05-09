@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 * move.
 */
 public class Paddle {
-	private static final float SPEED = 4; // meters per second
+	private static final float SPEED = 8; // meters per second
 	private static final float ANG_SPEED = 3; // radians per second
 	private static final float WIDTH = 0.1f;
 	private static final float HEIGHT = 1f;
@@ -134,4 +134,7 @@ public class Paddle {
 		return body.getWorldCenter();
 	}
 	
+	public void setVelocity(Vector2 velocity) {
+		body.setLinearVelocity(velocity.scl(SPEED));
+	}
 }
