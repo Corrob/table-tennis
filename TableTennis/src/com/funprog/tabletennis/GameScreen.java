@@ -40,6 +40,7 @@ public class GameScreen implements Screen{
 	
 	ControlTool resetBall;
 	RotateTool rotate;
+	MovementTool movement;
 	
 	/**
 	* Constructor that initializes the variables and takes
@@ -61,15 +62,18 @@ public class GameScreen implements Screen{
 		ball.stop(); // Don't let gravity affect the ball initially.
 		
 		table = new Table(world, new Vector2(5, 1.5f), 8, 0.1f);
-		tableVertical = new Table(world, new Vector2(9, 4.5f), 0.1f, 6);
+		tableVertical = new Table(world, new Vector2(9, 3), 0.1f, 3);
 		
-		leftPad = new Paddle(world, new Vector2(1, 2), 
+		leftPad = new Paddle(world, new Vector2(1, 2.5f), 
 				new Texture(Gdx.files.internal("paddle.png")));
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4, 0, 2, 1));
 		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
 				new Rectangle(8.6f, 0, 1.4f, 1.4f));
+		
+		movement = new MovementTool(world, new Texture(Gdx.files.internal("movement.png")),
+				new Rectangle(0.05f, 0.05f, 2.0f, 2.0f), new Texture(Gdx.files.internal("movementBall.png")));		
 	}
 	
 	/**
@@ -84,6 +88,13 @@ public class GameScreen implements Screen{
 		
 		getInput();
 		
+		// If the inside circle of the movement tool is out of bounds, return it
+		// to its center position.
+		if (movement.isOutOfBounds()) {
+			movement.stopMovingBall();
+			movement.repositionBall();
+		}
+		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
 		
@@ -97,6 +108,7 @@ public class GameScreen implements Screen{
 		// Draw the tools
 		resetBall.draw(spriteBatch);
 		rotate.draw(spriteBatch);
+		movement.draw(spriteBatch);
 		
 		// Draw the sprites of all the bodies
 		Iterator<Body> bi = world.getBodies();
@@ -115,6 +127,7 @@ public class GameScreen implements Screen{
 		}
 		
 		spriteBatch.end();
+		
 	}
 	
 	@Override
@@ -161,17 +174,25 @@ public class GameScreen implements Screen{
 				
 				// Sync the paddle with the rotation tool
 				leftPad.setRotation(rotate.getRotation());
-			} else if (touchPos.x < 8) {
+			} else if (movement.isTouched(touchPos.x, touchPos.y)) {
+				// Move the paddle
+				movement.updateTouch(touchPos.x, touchPos.y, leftPad);
+			} /*else if (touchPos.x < 8) {
 				// Move the paddle
 				// Offset y to ease android use
 				leftPad.moveToward(new Vector2(touchPos.x, touchPos.y + 1.2f));
-			} else { // Otherwise don't do anything
+			}*/ else { // Otherwise don't do anything
+				movement.stopMovingBall();
+				movement.repositionBall();
 				leftPad.stopMoving();
 			}
+			//movement.repositionBall();
 		}
 		
 		// If no input, stop moving
 		if (!Gdx.input.isTouched()) {
+			movement.stopMovingBall();
+			movement.repositionBall();
 			leftPad.stopMoving();
 		}
 		

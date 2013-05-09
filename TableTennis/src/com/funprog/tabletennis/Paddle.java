@@ -67,15 +67,16 @@ public class Paddle {
 	/**
 	 * Moves the paddle toward the point
 	 * @param point The point for the paddle to move
+	 * @param speed The factor that affects the speed of movement
 	 */
-	public void moveToward(Vector2 point) {
+	public void moveToward(Vector2 point, float speed) {
 		Vector2 dir = point.sub(body.getWorldCenter());
 		float distAway = dir.len();
 		
 		// Check if the paddle is far enough from the point
-		if (distAway > 0.1f) {
+		if (distAway > 0.001f) {
 			dir = dir.scl(SPEED / dir.len());
-			body.setLinearVelocity(dir);
+			body.setLinearVelocity(dir.scl(speed));
 		} else { // Otherwise it is close enough
 			stopMoving();
 		}
@@ -124,4 +125,13 @@ public class Paddle {
 	public void setRotation(float angle) {
 		body.setTransform(body.getPosition(), angle);
 	}
+	
+	/**
+	 * Returns the position of the paddle in the world.
+	 * @return The position of the paddle in the world.
+	 */
+	public Vector2 getWorldCenterPos() {
+		return body.getWorldCenter();
+	}
+	
 }
