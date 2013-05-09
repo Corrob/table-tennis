@@ -86,7 +86,7 @@ public class Paddle {
 	 * Stops the paddle from moving.
 	 */
 	public void stopMoving() {
-		body.setLinearDamping(0.1f);
+		body.setLinearVelocity(Vector2.Zero);
 	}
 	
 	/**
