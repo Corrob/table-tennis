@@ -53,7 +53,7 @@ public class Ball {
 		
 		sprite = new Sprite(texture);
 		
-		sprite.setSize(RADIUS * 4, RADIUS * 4);
+		sprite.setSize(RADIUS * 2, RADIUS * 2);
 		// Put the sprite's origin in the middle to ease rotation
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		

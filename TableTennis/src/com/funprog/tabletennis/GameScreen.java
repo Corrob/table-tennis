@@ -73,7 +73,7 @@ public class GameScreen implements Screen{
 				new Rectangle(8.6f, 0, 1.4f, 1.4f));
 		
 		movement = new MovementTool(world, new Texture(Gdx.files.internal("movement.png")),
-				new Rectangle(0.05f, 0.05f, 2.0f, 2.0f), new Texture(Gdx.files.internal("movementBall.png")));		
+				new Rectangle(0.05f, 0.05f, 1.4f, 1.4f), new Texture(Gdx.files.internal("movementBall.png")));		
 	}
 	
 	/**
@@ -97,9 +97,6 @@ public class GameScreen implements Screen{
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
-		
-		// Draw the box2d bodies for debugging
-		debugRenderer.render(world, camera.combined);
 		
 		// Draw all the sprites
 		spriteBatch.setProjectionMatrix(camera.combined);
@@ -128,6 +125,8 @@ public class GameScreen implements Screen{
 		
 		spriteBatch.end();
 		
+		// Draw the box2d bodies for debugging
+		debugRenderer.render(world, camera.combined);
 	}
 	
 	@Override

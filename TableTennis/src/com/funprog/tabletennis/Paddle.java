@@ -18,8 +18,8 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Paddle {
 	private static final float SPEED = 4; // meters per second
 	private static final float ANG_SPEED = 3; // radians per second
-	private static final float WIDTH = 0.05f;
-	private static final float HEIGHT = 0.5f;
+	private static final float WIDTH = 0.1f;
+	private static final float HEIGHT = 1f;
 	
 	private Body body;
 	private Sprite sprite;
@@ -42,7 +42,7 @@ public class Paddle {
 		
 		// Define the shape and characteristics of the paddle
 		PolygonShape paddleShape = new PolygonShape();
-		paddleShape.setAsBox(WIDTH, HEIGHT);
+		paddleShape.setAsBox(WIDTH / 2, HEIGHT / 2);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = paddleShape;
@@ -57,7 +57,7 @@ public class Paddle {
 		
 		sprite = new Sprite(texture);
 		
-		sprite.setSize(WIDTH * 4, HEIGHT * 2.5f);
+		sprite.setSize(WIDTH * 2, HEIGHT);
 		// Put the sprite's origin in the middle to ease rotation
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		
