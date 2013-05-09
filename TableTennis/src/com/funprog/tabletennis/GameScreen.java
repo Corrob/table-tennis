@@ -24,6 +24,9 @@ import com.badlogic.gdx.math.Vector3;
 * while checking for input and rendering output.
 */
 public class GameScreen implements Screen{
+	private static final float WORLD_WIDTH = 10;
+	private static final float WORLD_HEIGHT = 5;
+	
 	TableTennis game;
 	
 	OrthographicCamera camera;
@@ -53,7 +56,7 @@ public class GameScreen implements Screen{
 		this.game = game;
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 10, 5); // Create dimensions of world to 10 by 5
+		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT); // Create dimensions of world to 10 by 5
 		world = new World(new Vector2(0, -10), true); // Create world with gravity
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
@@ -168,8 +171,33 @@ public class GameScreen implements Screen{
 				leftPad.setRotation(rotate.getRotation());
 			} else if (movement.isTouched(touchPos.x, touchPos.y)) {
 				// Move the paddle and update the movement image
-				movement.updateTouch(touchPos.x, touchPos.y, leftPad);
+				movement.updateTouch(touchPos.x, touchPos.y, leftPad, WORLD_WIDTH,
+						WORLD_HEIGHT);
 			}
+		}
+		
+		// If no input is received
+		if (!Gdx.input.isTouched()) {
+			movement.repositionBall();
+			
+			float padX = leftPad.getWorldCenterPos().x;
+			float padY = leftPad.getWorldCenterPos().y;
+			
+			// Don't let the paddle go outside the world
+			if (!(padX > 0 && padY > 0
+					&& padY < WORLD_HEIGHT) || padX > WORLD_WIDTH / 2) {	
+				if (padX < 0) {
+					leftPad.setPosition(padX + 0.5f, padY);				
+				} else if (padX > WORLD_WIDTH / 2) { 
+					leftPad.setPosition(padX - 0.5f, padY);
+				}
+				else if (padY > 0) {
+					leftPad.setPosition(padX, padY - 0.5f);
+				} else if (padY < 0) {
+					leftPad.setPosition(padX, padY + 0.5f);
+				}
+				leftPad.stopMoving();
+			} 
 		}
 		
 		// Check for keyboard input

@@ -137,4 +137,13 @@ public class Paddle {
 	public void setVelocity(Vector2 velocity) {
 		body.setLinearVelocity(velocity.scl(SPEED));
 	}
+	
+	/**
+	 * Moves the paddle to the passed position.
+	 * @param The position the paddle will move to.
+	 */
+	public void setPosition(float x, float y) {
+		body.setTransform(x, y, body.getAngle());
+	}
+	
 }

@@ -40,8 +40,10 @@ public class MovementTool extends ControlTool {
 	 * @param x The x value of the touch
 	 * @param y The y value of the touch
 	 * @param pad The paddle to be moved
+	 * @param worldWidth The width of the world
+	 * @param worldHeight The height of the world
 	 */
-	public void updateTouch(float x, float y, Paddle pad) {
+	public void updateTouch(float x, float y, Paddle pad, float worldWidth, float worldHeight) {
 		Vector2 touch = new Vector2(x, y);
 		
 		// Moves the inside circle
@@ -51,7 +53,26 @@ public class MovementTool extends ControlTool {
 		Vector2 dir = touch.sub(new Vector2(sprite.getX() + sprite.getOriginX(),
 				sprite.getY() + sprite.getOriginY()));
 		
-		pad.setVelocity(dir);
+		float padX = pad.getWorldCenterPos().x;
+		float padY = pad.getWorldCenterPos().y;
+		if (padX > 0 && padY > 0
+				&& padY < worldHeight) {
+			// Don't let the paddle go to the right half of the screen
+			if (padX < worldWidth / 2 - 0.05f) {
+				pad.setVelocity(dir);
+			}
+			else { // The paddle has been moved to the right half of the screen 
+				pad.setPosition(padX - worldWidth / 16, padY);
+				pad.stopMoving();
+				//pad.setVelocity(new Vector2(-1, 0));
+			}
+		} else if (padY > 0) {
+			pad.setPosition(padX + 1, padY - 1);
+			pad.stopMoving();
+		} else if (padY < 0) {
+			pad.setPosition(padX + 1, padY + 1);
+			pad.stopMoving();
+		}
 	}
 	
 	/**
