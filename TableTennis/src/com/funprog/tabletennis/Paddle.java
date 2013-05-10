@@ -2,6 +2,7 @@ package com.funprog.tabletennis;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -146,4 +147,30 @@ public class Paddle {
 		body.setTransform(x, y, body.getAngle());
 	}
 	
+	/**
+	 * Prevents the paddle from leaving the rectangle
+	 * @param rect The rectangle to keep the paddle within
+	 */
+	public void constrainTo(Rectangle rect) {
+		float padX = getWorldCenterPos().x;
+		float padY = getWorldCenterPos().y;
+		float velX = body.getLinearVelocity().x;
+		float velY = body.getLinearVelocity().y;
+		
+		if (padX < rect.x && velX < 0) {
+			body.setLinearVelocity(0, body.getLinearVelocity().y);
+		}
+		
+		if (padX > rect.x + rect.width && velX > 0) { 
+			body.setLinearVelocity(0, body.getLinearVelocity().y);
+		}
+		
+		if (padY > rect.y + rect.height && velY > 0) {
+			body.setLinearVelocity(body.getLinearVelocity().x, 0);
+		}
+		
+		if (padY < rect.y && velY < 0) {
+			body.setLinearVelocity(body.getLinearVelocity().x, 0);
+		}
+	}
 }
