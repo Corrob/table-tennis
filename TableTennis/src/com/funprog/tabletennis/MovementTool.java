@@ -72,7 +72,7 @@ public class MovementTool extends ControlTool {
 		} else if (padY < 0) {
 			pad.setPosition(padX + 1, padY + 1);
 			pad.stopMoving();
-		}
+		}	
 	}
 	
 	/**
