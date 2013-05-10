@@ -90,6 +90,7 @@ public class GameScreen implements Screen{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		getInput();
+		leftPad.constrainTo(new Rectangle(0, 0, WORLD_WIDTH / 2, WORLD_HEIGHT));
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
@@ -179,25 +180,6 @@ public class GameScreen implements Screen{
 		// If no input is received
 		if (!Gdx.input.isTouched()) {
 			movement.repositionBall();
-			
-			float padX = leftPad.getWorldCenterPos().x;
-			float padY = leftPad.getWorldCenterPos().y;
-			
-			// Don't let the paddle go outside the world
-			if (!(padX > 0 && padY > 0
-					&& padY < WORLD_HEIGHT) || padX > WORLD_WIDTH / 2) {	
-				if (padX < 0) {
-					leftPad.setPosition(padX + 0.5f, padY);				
-				} else if (padX > WORLD_WIDTH / 2) { 
-					leftPad.setPosition(padX - 0.5f, padY);
-				}
-				else if (padY > 0) {
-					leftPad.setPosition(padX, padY - 0.5f);
-				} else if (padY < 0) {
-					leftPad.setPosition(padX, padY + 0.5f);
-				}
-				leftPad.stopMoving();
-			} 
 		}
 		
 		// Check for keyboard input
