@@ -46,14 +46,18 @@ public class MovementTool extends ControlTool {
 	public void updateTouch(float x, float y, Paddle pad, float worldWidth, float worldHeight) {
 		Vector2 touch = new Vector2(x, y);
 		
-		// Moves the inside circle
-		moveBallTo(touch);
-		
 		// Calculate the vector from the tool's center to the touch point
 		Vector2 dir = touch.sub(new Vector2(sprite.getX() + sprite.getOriginX(),
 				sprite.getY() + sprite.getOriginY()));
 		
-		pad.setVelocity(dir);
+		touch = new Vector2(x, y);
+		
+		if (inEllipse(dir)) {
+			// Moves the inside circle
+			moveBallTo(touch);
+			
+			pad.setVelocity(dir);
+		}
 	}
 	
 	/**
@@ -83,5 +87,18 @@ public class MovementTool extends ControlTool {
 	public void draw(SpriteBatch batch) {
 		sprite.draw(batch);
 		spriteBall.draw(batch);
+	}
+	
+	/**
+	 * Use ellipse equation to check if the touch is in the ellipse inscribed
+	 * in the bounding rectangle. Ellipse: x^2/a^2 + y^2/b^2 = 1
+	 * @param dir The direction from the center
+	 * @return True if the vector is in the ellispe and false if it isn't
+	 */
+	private boolean inEllipse(Vector2 dir) {
+		float a = rect.getWidth() / 2 - spriteBall.getWidth() / 2;
+		float b = rect.getHeight() / 2 - spriteBall.getHeight() / 2;
+		
+		return dir.x * dir.x / (a * a) + dir.y * dir.y / (b * b) < 1;
 	}
 }
