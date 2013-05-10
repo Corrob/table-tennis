@@ -19,8 +19,8 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Paddle {
 	private static final float SPEED = 8; // meters per second
 	private static final float ANG_SPEED = 3; // radians per second
-	private static final float WIDTH = 0.1f;
-	private static final float HEIGHT = 1f;
+	private static final float WIDTH = 0.35f;
+	private static final float HEIGHT = 1.3f;
 	
 	private Body body;
 	private Sprite sprite;

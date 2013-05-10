@@ -28,7 +28,7 @@ public class MovementTool extends ControlTool {
 		
 		// Create the sprite for the inside circle with the given image and size
 		spriteBall = new Sprite(imageInner);
-		spriteBall.setSize(0.30f, 0.30f);
+		spriteBall.setSize(0.40f, 0.40f);
 		spriteBall.setOrigin(spriteBall.getWidth() / 2, spriteBall.getHeight() / 2);
 		spriteBall.setPosition(sprite.getX() + sprite.getOriginX() - spriteBall.getOriginX(), 
 				sprite.getY() + sprite.getOriginY() - spriteBall.getOriginY());
