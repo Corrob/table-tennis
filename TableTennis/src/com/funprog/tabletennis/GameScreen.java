@@ -46,6 +46,7 @@ public class GameScreen implements Screen{
 	MovementTool movement;
 	
 	Texture background;
+	Texture tableTexture;
 	
 	/**
 	* Constructor that initializes the variables and takes
@@ -63,13 +64,13 @@ public class GameScreen implements Screen{
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
 		
-		ball = new Ball(world, new Vector2(2, 3), new Texture(Gdx.files.internal("ball.png")));
+		ball = new Ball(world, new Vector2(2, 4), new Texture(Gdx.files.internal("ball.png")));
 		ball.stop(); // Don't let gravity affect the ball initially.
 		
-		table = new Table(world, new Vector2(5, 1.5f), 8, 0.1f);
-		tableVertical = new Table(world, new Vector2(9, 3), 0.1f, 3);
+		table = new Table(world, new Vector2(5, 2.5f), 8, 0.1f);
+		tableVertical = new Table(world, new Vector2(9, 4), 0.1f, 3);
 		
-		leftPad = new Paddle(world, new Vector2(1, 2.5f), 
+		leftPad = new Paddle(world, new Vector2(1, 3.5f), 
 				new Texture(Gdx.files.internal("paddle.png")));
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
@@ -82,6 +83,9 @@ public class GameScreen implements Screen{
 	
 		// Load texture for background image
 		background = new Texture(Gdx.files.internal("background.png"));
+		
+		// Load texture for table
+		tableTexture = new Texture(Gdx.files.internal("table.png"));
 	}
 	
 	/**
@@ -106,6 +110,8 @@ public class GameScreen implements Screen{
 		
 		// Draw the background
 		spriteBatch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+		// Draw the table
+		spriteBatch.draw(tableTexture, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 		
 		// Draw the tools
 		resetBall.draw(spriteBatch);
@@ -170,7 +176,7 @@ public class GameScreen implements Screen{
 			
 			if (resetBall.isTouched(touchPos.x, touchPos.y)) {
 				// Move the ball to its starting position and stop it
-				ball.setPosition(2, 3);
+				ball.setPosition(2, 4);
 				ball.stop();
 			} else if (rotate.isTouched(touchPos.x, touchPos.y)) {
 				// Update the rotation image
