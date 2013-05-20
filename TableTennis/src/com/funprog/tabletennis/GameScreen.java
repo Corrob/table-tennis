@@ -25,7 +25,7 @@ import com.badlogic.gdx.math.Vector3;
 */
 public class GameScreen implements Screen{
 	private static final float WORLD_WIDTH = 10;
-	private static final float WORLD_HEIGHT = 5;
+	private static final float WORLD_HEIGHT = 6;
 	
 	TableTennis game;
 	
@@ -44,6 +44,8 @@ public class GameScreen implements Screen{
 	ControlTool resetBall;
 	RotateTool rotate;
 	MovementTool movement;
+	
+	Texture background;
 	
 	/**
 	* Constructor that initializes the variables and takes
@@ -73,10 +75,13 @@ public class GameScreen implements Screen{
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4, 0, 2, 1));
 		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
-				new Rectangle(8.6f, 0, 1.4f, 1.4f));
+				new Rectangle(8.6f, 0, 1.5f, 1.5f));
 		
 		movement = new MovementTool(world, new Texture(Gdx.files.internal("movement.png")),
-				new Rectangle(0.05f, 0.05f, 1.4f, 1.4f), new Texture(Gdx.files.internal("movementBall.png")));		
+				new Rectangle(0.05f, 0.05f, 1.5f, 1.5f), new Texture(Gdx.files.internal("movementBall.png")));		
+	
+		// Load texture for background image
+		background = new Texture(Gdx.files.internal("background.png"));
 	}
 	
 	/**
@@ -98,6 +103,9 @@ public class GameScreen implements Screen{
 		// Draw all the sprites
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
+		
+		// Draw the background
+		spriteBatch.draw(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 		
 		// Draw the tools
 		resetBall.draw(spriteBatch);
