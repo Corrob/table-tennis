@@ -74,9 +74,9 @@ public class GameScreen implements Screen{
 				new Texture(Gdx.files.internal("paddle.png")));
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
-				new Rectangle(4, 0, 2, 1));
+				new Rectangle(4, 0.05f, 2, 1));
 		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
-				new Rectangle(8.6f, 0, 1.5f, 1.5f));
+				new Rectangle(8.45f, 0.05f, 1.5f, 1.5f));
 		
 		movement = new MovementTool(world, new Texture(Gdx.files.internal("movement.png")),
 				new Rectangle(0.05f, 0.05f, 1.5f, 1.5f), new Texture(Gdx.files.internal("movementBall.png")));		
