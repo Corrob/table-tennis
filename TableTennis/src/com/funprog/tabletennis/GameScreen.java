@@ -26,6 +26,7 @@ import com.badlogic.gdx.math.Vector3;
 public class GameScreen implements Screen{
 	private static final float WORLD_WIDTH = 10;
 	private static final float WORLD_HEIGHT = 6;
+	private static final float DPAD_MOVEMENT_SPEED = 0.5f;
 	
 	TableTennis game;
 	
@@ -168,6 +169,8 @@ public class GameScreen implements Screen{
 	 * Checks the touch screen and keyboard, then responds
 	 */
 	private void getInput() {
+		// Used to determine if user used movement tool to move paddle
+		boolean touchedMovementTool = false;
 		// Loop through each touch input
 		for (int i = 0; Gdx.input.isTouched(i); i++) {
 			touchPos = new Vector3(); // 3d vector used for camera.unproject
@@ -185,6 +188,7 @@ public class GameScreen implements Screen{
 				// Sync the paddle with the rotation tool
 				leftPad.setRotation(rotate.getRotation());
 			} else if (movement.isTouched(touchPos.x, touchPos.y)) {
+				touchedMovementTool = true;
 				// Move the paddle and update the movement image
 				movement.updateTouch(touchPos.x, touchPos.y, leftPad, WORLD_WIDTH,
 						WORLD_HEIGHT);
@@ -207,8 +211,19 @@ public class GameScreen implements Screen{
 			
 			// Sync the changing rotation with touch rotation
 			rotate.setRotation(leftPad.getRotation());
+		} else if (Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
+			leftPad.setVelocity(new Vector2(0, DPAD_MOVEMENT_SPEED));
+		} else if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
+			leftPad.setVelocity(new Vector2(0, -1 * DPAD_MOVEMENT_SPEED));
+		} else if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+			leftPad.setVelocity(new Vector2(-1 * DPAD_MOVEMENT_SPEED, 0));
+		} else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+			leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED, 0));
 		} else {
 			leftPad.stopRotating();
+			if (!touchedMovementTool) {
+				leftPad.stopMoving();
+			}
 		}
 	}
 }
