@@ -212,9 +212,29 @@ public class GameScreen implements Screen{
 			// Sync the changing rotation with touch rotation
 			rotate.setRotation(leftPad.getRotation());
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
-			leftPad.setVelocity(new Vector2(0, DPAD_MOVEMENT_SPEED));
+			// Check if user is pressing right or left to determine
+			// if paddle should go northwest or northeast.
+			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+				leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED,
+						DPAD_MOVEMENT_SPEED));
+			} else if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+				leftPad.setVelocity(new Vector2(-1 * DPAD_MOVEMENT_SPEED,
+						DPAD_MOVEMENT_SPEED));
+			} else {
+				leftPad.setVelocity(new Vector2(0, DPAD_MOVEMENT_SPEED));
+			}
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
-			leftPad.setVelocity(new Vector2(0, -1 * DPAD_MOVEMENT_SPEED));
+			// Check if user is pressing right or left to determine
+			// if paddle should go southwest or southeast.
+			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
+				leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED,
+						-1 * DPAD_MOVEMENT_SPEED));
+			} else if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+				leftPad.setVelocity(new Vector2(-1 * DPAD_MOVEMENT_SPEED,
+						-1 * DPAD_MOVEMENT_SPEED));
+			} else {
+				leftPad.setVelocity(new Vector2(0, -1 * DPAD_MOVEMENT_SPEED));
+			}
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
 			leftPad.setVelocity(new Vector2(-1 * DPAD_MOVEMENT_SPEED, 0));
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
