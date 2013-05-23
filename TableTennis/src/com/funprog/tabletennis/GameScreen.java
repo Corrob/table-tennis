@@ -49,6 +49,9 @@ public class GameScreen implements Screen{
 	Texture background;
 	Texture tableTexture;
 	
+	// Used in getInput() to determine if user used movement tool to move paddle
+	private boolean touchedMovementTool;
+	
 	/**
 	* Constructor that initializes the variables and takes
 	* the game as an argument to have the ability to change
@@ -60,7 +63,7 @@ public class GameScreen implements Screen{
 		this.game = game;
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT); // Create dimensions of world to 10 by 5
+		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT); // Create dimensions of world to 10 by 6
 		world = new World(new Vector2(0, -10), true); // Create world with gravity
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
@@ -169,8 +172,7 @@ public class GameScreen implements Screen{
 	 * Checks the touch screen and keyboard, then responds
 	 */
 	private void getInput() {
-		// Used to determine if user used movement tool to move paddle
-		boolean touchedMovementTool = false;
+		touchedMovementTool = false;
 		// Loop through each touch input
 		for (int i = 0; Gdx.input.isTouched(i); i++) {
 			touchPos = new Vector3(); // 3d vector used for camera.unproject
