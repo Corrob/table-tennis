@@ -63,7 +63,7 @@ public class GameScreen implements Screen{
 		this.game = game;
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT); // Create dimensions of world to 10 by 6
+		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 		world = new World(new Vector2(0, -10), true); // Create world with gravity
 		debugRenderer = new Box2DDebugRenderer();
 		spriteBatch = new SpriteBatch();
@@ -82,8 +82,11 @@ public class GameScreen implements Screen{
 		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
 				new Rectangle(8.35f, 0.05f, 1.6f, 1.6f));
 		
-		movement = new MovementTool(world, new Texture(Gdx.files.internal("movement.png")),
-				new Rectangle(0.05f, 0.05f, 1.6f, 1.6f), new Texture(Gdx.files.internal("movementBall.png")));		
+		movement = new MovementTool(
+				world, 
+				new Texture(Gdx.files.internal("movement.png")),
+				new Rectangle(0.05f, 0.05f, 1.6f, 1.6f),
+				new Texture(Gdx.files.internal("movementBall.png")));		
 	
 		// Load texture for background image
 		background = new Texture(Gdx.files.internal("background.png"));
