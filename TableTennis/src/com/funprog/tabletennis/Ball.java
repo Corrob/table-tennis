@@ -44,7 +44,7 @@ public class Ball {
 		fixtureDef.shape = circle;
 		fixtureDef.density = 0.2f;
 		fixtureDef.friction = 0.2f;
-		fixtureDef.restitution = 0.9f;
+		fixtureDef.restitution = 0.8f;
 	
 		body.createFixture(fixtureDef);
 		
@@ -74,5 +74,13 @@ public class Ball {
 	 */
 	public void setPosition(float x, float y) {
 		body.setTransform(x, y, body.getAngle());
+	}
+	
+	/**
+	 * The body that describes the ball's motion
+	 * @return the body of the ball
+	 */
+	public Body getBody() {
+		return body;
 	}
 }

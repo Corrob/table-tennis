@@ -37,8 +37,8 @@ public class GameScreen implements Screen{
 	
 	Ball ball;
 	Table table;
-	Table tableVertical;
 	Paddle leftPad;
+	ComputerPaddle rightPad;
 	
 	Vector3 touchPos;
 	
@@ -72,10 +72,11 @@ public class GameScreen implements Screen{
 		ball.stop(); // Don't let gravity affect the ball initially.
 		
 		table = new Table(world, new Vector2(5, 2.5f), 8, 0.1f);
-		tableVertical = new Table(world, new Vector2(9, 4), 0.1f, 3);
 		
 		leftPad = new Paddle(world, new Vector2(1, 3.5f), 
 				new Texture(Gdx.files.internal("paddle.png")));
+		rightPad = new ComputerPaddle(world, new Vector2(9, 3.5f),
+				new Texture(Gdx.files.internal("paddle.png")), 8);
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4.2f, 0.05f, 1.6f, 0.8f));
@@ -106,7 +107,11 @@ public class GameScreen implements Screen{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		getInput();
+		rightPad.defendPosition(ball);
+		
 		leftPad.constrainTo(new Rectangle(0, 0, WORLD_WIDTH / 2, WORLD_HEIGHT));
+		rightPad.constrainTo(new Rectangle(WORLD_WIDTH * 2 / 3, 0, 
+				WORLD_WIDTH / 3, WORLD_HEIGHT * 4 / 5));
 		
 		// Go to the next step and render the world
 		world.step(delta, 8, 3);
