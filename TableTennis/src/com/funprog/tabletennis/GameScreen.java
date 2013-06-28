@@ -61,39 +61,6 @@ public class GameScreen implements Screen{
 	*/
 	GameScreen(TableTennis game) {
 		this.game = game;
-		
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-		world = new World(new Vector2(0, -10), true); // Create world with gravity
-		debugRenderer = new Box2DDebugRenderer();
-		spriteBatch = new SpriteBatch();
-		
-		ball = new Ball(world, new Vector2(2, 4), new Texture(Gdx.files.internal("ball.png")));
-		ball.stop(); // Don't let gravity affect the ball initially.
-		
-		table = new Table(world, new Vector2(5, 2.5f), 8, 0.1f);
-		
-		leftPad = new Paddle(world, new Vector2(1, 3.5f), 
-				new Texture(Gdx.files.internal("paddle.png")));
-		rightPad = new ComputerPaddle(world, new Vector2(9, 3.5f),
-				new Texture(Gdx.files.internal("paddle.png")), 8);
-		
-		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
-				new Rectangle(4.2f, 0.05f, 1.6f, 0.8f));
-		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
-				new Rectangle(8.35f, 0.05f, 1.6f, 1.6f));
-		
-		movement = new MovementTool(
-				world, 
-				new Texture(Gdx.files.internal("movement.png")),
-				new Rectangle(0.05f, 0.05f, 1.6f, 1.6f),
-				new Texture(Gdx.files.internal("movementBall.png")));		
-	
-		// Load texture for background image
-		background = new Texture(Gdx.files.internal("background.png"));
-		
-		// Load texture for table
-		tableTexture = new Texture(Gdx.files.internal("table.png"));
 	}
 	
 	/**
@@ -158,6 +125,38 @@ public class GameScreen implements Screen{
 	
 	@Override
 	public void show() {
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		world = new World(new Vector2(0, -10), true); // Create world with gravity
+		debugRenderer = new Box2DDebugRenderer();
+		spriteBatch = new SpriteBatch();
+		
+		ball = new Ball(world, new Vector2(2, 4), new Texture(Gdx.files.internal("ball.png")));
+		ball.stop(); // Don't let gravity affect the ball initially.
+		
+		table = new Table(world, new Vector2(5, 2.5f), 8, 0.1f);
+		
+		leftPad = new Paddle(world, new Vector2(1, 3.5f), 
+				new Texture(Gdx.files.internal("paddle.png")));
+		rightPad = new ComputerPaddle(world, new Vector2(9, 3.5f),
+				new Texture(Gdx.files.internal("paddle.png")), 8);
+		
+		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
+				new Rectangle(4.2f, 0.05f, 1.6f, 0.8f));
+		rotate = new RotateTool(new Texture(Gdx.files.internal("rotate.png")),
+				new Rectangle(8.35f, 0.05f, 1.6f, 1.6f));
+		
+		movement = new MovementTool(
+				world, 
+				new Texture(Gdx.files.internal("movement.png")),
+				new Rectangle(0.05f, 0.05f, 1.6f, 1.6f),
+				new Texture(Gdx.files.internal("movementBall.png")));		
+	
+		// Load texture for background image
+		background = new Texture(Gdx.files.internal("background.png"));
+		
+		// Load texture for table
+		tableTexture = new Texture(Gdx.files.internal("table.png"));
 	}
 	
 	@Override
