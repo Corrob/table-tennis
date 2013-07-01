@@ -47,7 +47,7 @@ public class MainMenuScreen implements Screen{
 		
 		// Draw the background
 		spriteBatch.draw(background, 0, 0, 800, 480);
-		spriteBatch.draw(logo, 200, 380, 400, 133.33f);
+		spriteBatch.draw(logo, 98.5f, 380, 600, 91);
 		startGame.draw(spriteBatch);
 		controls.draw(spriteBatch);
 		options.draw(spriteBatch);
@@ -69,15 +69,15 @@ public class MainMenuScreen implements Screen{
 		logo = new Texture(Gdx.files.internal("logo.png"));
 		
 		startGame = new ControlTool(new Texture(Gdx.files.internal("startButton.png")), 
-				new Rectangle(304, 338, 192, 64));
+				new Rectangle(304, 318, 192, 64));
 		controls = new ControlTool(new Texture(Gdx.files.internal("controlsButton.png")), 
-				new Rectangle(304, 262, 192, 64));
+				new Rectangle(304, 242, 192, 64));
 		options = new ControlTool(new Texture(Gdx.files.internal("optionsButton.png")), 
-				new Rectangle(304, 186, 192, 64));
+				new Rectangle(304, 166, 192, 64));
 		highScores = new ControlTool(new Texture(Gdx.files.internal("highScoresButton.png")), 
-				new Rectangle(304, 110, 192, 64));
+				new Rectangle(304, 90, 192, 64));
 		credits = new ControlTool(new Texture(Gdx.files.internal("creditsButton.png")), 
-				new Rectangle(304, 34, 192, 64));
+				new Rectangle(304, 14, 192, 64));
 	}
 	
 	@Override
