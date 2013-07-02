@@ -149,7 +149,7 @@ public class GameScreen implements Screen{
 		movement = new MovementTool(
 				world, 
 				new Texture(Gdx.files.internal("movement.png")),
-				new Rectangle(0.05f, 0.05f, 1.6f, 1.6f),
+				new Rectangle(0.05f, 0.05f, 2.5f, 2.5f),
 				new Texture(Gdx.files.internal("movementBall.png")));		
 	
 		// Load texture for background image
@@ -209,20 +209,23 @@ public class GameScreen implements Screen{
 			movement.repositionBall();
 		}
 		
-		// Check for keyboard input
-		if (Gdx.input.isKeyPressed(Keys.A)) {
+		// Check for keyboard input and do not let the paddle rotate more
+		// than PI / 4 radians
+		if (Gdx.input.isKeyPressed(Keys.A)
+				&& Math.abs(leftPad.getRotation()) <= MathUtils.PI / 4) {
 			leftPad.rotateCounterClockwise();
 			
 			// Sync the changing rotation with touch rotation
 			rotate.setRotation(leftPad.getRotation());
-		} else if (Gdx.input.isKeyPressed(Keys.D)) {
+		} else if (Gdx.input.isKeyPressed(Keys.D)
+				&& Math.abs(leftPad.getRotation()) <= MathUtils.PI / 4) {
 			leftPad.rotateClockwise();
 			
 			// Sync the changing rotation with touch rotation
 			rotate.setRotation(leftPad.getRotation());
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_UP)) {
 			// Check if user is pressing right or left to determine
-			// if paddle should go northwest or northeast.
+			// if paddle should go northwest or northeast
 			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
 				leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED,
 						DPAD_MOVEMENT_SPEED));
@@ -234,7 +237,7 @@ public class GameScreen implements Screen{
 			}
 		} else if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN)) {
 			// Check if user is pressing right or left to determine
-			// if paddle should go southwest or southeast.
+			// if paddle should go southwest or southeast
 			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) {
 				leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED,
 						-1 * DPAD_MOVEMENT_SPEED));
@@ -250,6 +253,16 @@ public class GameScreen implements Screen{
 			leftPad.setVelocity(new Vector2(DPAD_MOVEMENT_SPEED, 0));
 		} else {
 			leftPad.stopRotating();
+			
+			// Ensure the paddle does not rotate more than PI / 4 radians
+			if (leftPad.getRotation() > MathUtils.PI / 4) {
+				leftPad.setRotation(MathUtils.PI / 4);
+			}
+			// Ensure the paddle does not rotate more than PI / 4 radians
+			if (leftPad.getRotation() < -MathUtils.PI / 4) {
+				leftPad.setRotation(-MathUtils.PI / 4);
+			}
+			
 			if (!touchedMovementTool) {
 				leftPad.stopMoving();
 			}

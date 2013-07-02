@@ -28,7 +28,7 @@ public class MovementTool extends ControlTool {
 		
 		// Create the sprite for the inside circle with the given image and size
 		spriteBall = new Sprite(imageInner);
-		spriteBall.setSize(0.40f, 0.40f);
+		spriteBall.setSize(0.55f, 0.55f);
 		spriteBall.setOrigin(spriteBall.getWidth() / 2, spriteBall.getHeight() / 2);
 		spriteBall.setPosition(sprite.getX() + sprite.getOriginX() - spriteBall.getOriginX(), 
 				sprite.getY() + sprite.getOriginY() - spriteBall.getOriginY());
@@ -55,7 +55,7 @@ public class MovementTool extends ControlTool {
 		if (inEllipse(dir)) {
 			// Moves the inside circle
 			moveBallTo(touch);
-			
+			// Moves the paddle
 			pad.setVelocity(dir);
 		}
 	}
@@ -93,11 +93,13 @@ public class MovementTool extends ControlTool {
 	 * Use ellipse equation to check if the touch is in the ellipse inscribed
 	 * in the bounding rectangle. Ellipse: x^2/a^2 + y^2/b^2 = 1
 	 * @param dir The direction from the center
-	 * @return True if the vector is in the ellispe and false if it isn't
+	 * @return True if the vector is in the ellipse and false if it isn't
 	 */
 	private boolean inEllipse(Vector2 dir) {
-		float a = rect.getWidth() / 2 - spriteBall.getWidth() / 2;
-		float b = rect.getHeight() / 2 - spriteBall.getHeight() / 2;
+		//float a = rect.getWidth() / 2 - spriteBall.getWidth() / 2;
+		//float b = rect.getHeight() / 2 - spriteBall.getHeight() / 2;
+		float a = rect.getWidth() / 2;
+		float b = rect.getHeight() / 2;
 		
 		return dir.x * dir.x / (a * a) + dir.y * dir.y / (b * b) < 1;
 	}

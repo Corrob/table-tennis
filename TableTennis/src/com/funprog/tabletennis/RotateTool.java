@@ -43,14 +43,17 @@ public class RotateTool extends ControlTool {
 		// both both a and b are unit vectors
 		double angle = Math.acos(dot);
 		
-		// Since arccos returns between 0 and pi, figure out to go clockwise
-		// or counter-clockwise based on the x value of the input
-		if (touch.x < 0) {
-			// Go counter-clockwise because negative x is left of top
-			sprite.setRotation(MathUtils.radiansToDegrees * (float) angle);
-		} else {
-			// Go clockwise because positive x is right of top
-			sprite.setRotation(-MathUtils.radiansToDegrees * (float) angle);
+		// Since Arccos returns between 0 and pi, figure out to go clockwise
+		// or counter-clockwise based on the x value of the input.
+		// Ensure the paddle does not rotate more than PI / 4 radians
+		if (angle <= MathUtils.PI / 4) {
+			if (touch.x < 0) {
+				// Go counter-clockwise because negative x is left of top
+				sprite.setRotation(MathUtils.radiansToDegrees * (float) angle);
+			} else {
+				// Go clockwise because positive x is right of top
+				sprite.setRotation(-MathUtils.radiansToDegrees * (float) angle);
+			}
 		}
 	}
 	
