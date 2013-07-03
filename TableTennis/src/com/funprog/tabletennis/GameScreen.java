@@ -116,7 +116,7 @@ public class GameScreen implements Screen{
 		spriteBatch.end();
 		
 		// Draw the box2d bodies for debugging
-		debugRenderer.render(world, camera.combined);
+		//debugRenderer.render(world, camera.combined);
 	}
 	
 	@Override
@@ -139,7 +139,7 @@ public class GameScreen implements Screen{
 		leftPad = new Paddle(world, new Vector2(1, 3.5f), 
 				new Texture(Gdx.files.internal("paddle.png")));
 		rightPad = new ComputerPaddle(world, new Vector2(9, 3.5f),
-				new Texture(Gdx.files.internal("paddle.png")), 8);
+				new Texture(Gdx.files.internal("rightPaddle.png")), 8);
 		
 		resetBall = new ControlTool(new Texture(Gdx.files.internal("resetBall.png")), 
 				new Rectangle(4.2f, 0.05f, 1.6f, 0.8f));
