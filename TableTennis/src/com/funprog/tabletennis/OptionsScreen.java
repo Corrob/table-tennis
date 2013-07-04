@@ -33,8 +33,31 @@ public class OptionsScreen implements Screen{
 	ControlTool musicOn;
 	ControlTool musicOff;
 	
+	// These sprites will be drawn over selected buttons
+	private Sprite selectedSound;
+	private Sprite selectedMusic;
+	private Sprite selectedDifficulty;
+	
 	public OptionsScreen(TableTennis game) {
 		this.game = game;
+		
+		// The game sounds are ON by default
+		selectedSound = new Sprite(new Texture(Gdx.files.internal("selected.png")));
+		selectedSound.setSize(192, 64);
+		selectedSound.setOrigin(selectedSound.getWidth() / 2, selectedSound.getHeight() / 2);
+		selectedSound.setPosition(188, 130);
+		
+		// The game musics are ON by default
+		selectedMusic = new Sprite(new Texture(Gdx.files.internal("selected.png")));
+		selectedMusic.setSize(192, 64);
+		selectedMusic.setOrigin(selectedMusic.getWidth() / 2, selectedMusic.getHeight() / 2);
+		selectedMusic.setPosition(188, 30);
+	
+		// The game in on Medium difficulty by default
+		selectedDifficulty = new Sprite(new Texture(Gdx.files.internal("selected.png")));
+		selectedDifficulty.setSize(192, 64);
+		selectedDifficulty.setOrigin(selectedDifficulty.getWidth() / 2, selectedDifficulty.getHeight() / 2);
+		selectedDifficulty.setPosition(294, 230);
 	}
 	
 	@Override
@@ -57,6 +80,10 @@ public class OptionsScreen implements Screen{
 		soundOff.draw(spriteBatch);
 		musicOn.draw(spriteBatch);
 		musicOff.draw(spriteBatch);
+		
+		selectedSound.draw(spriteBatch);
+		selectedMusic.draw(spriteBatch);
+		selectedDifficulty.draw(spriteBatch);
 		
 		spriteBatch.end();
 	}
@@ -114,6 +141,20 @@ public class OptionsScreen implements Screen{
 		for (int i = 0; Gdx.input.isTouched(i); i++) {
 			if (backButton.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
 				game.setScreen(game.mainMenuScreen);
+			} else if (easy.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedDifficulty.setPosition(92, 230);
+			} else if (medium.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedDifficulty.setPosition(294, 230);
+			} else if (hard.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedDifficulty.setPosition(496, 230);
+			} else if (soundOn.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedSound.setPosition(188, 130);
+			} else if (soundOff.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedSound.setPosition(390, 130);
+			} else if (musicOn.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedMusic.setPosition(188, 30);
+			} else if (musicOff.isTouched(Gdx.input.getX(i), 480 - Gdx.input.getY(i))) {
+				selectedMusic.setPosition(390, 30);
 			}
 		}
 	}
