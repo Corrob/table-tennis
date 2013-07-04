@@ -60,7 +60,7 @@ public class ControlsScreen implements Screen{
 		
 		tutorial = new Texture(Gdx.files.internal("tutorial.png"));
 		
-		backButton = new ControlTool(new Texture(Gdx.files.internal("backButton.png")), 
+		backButton = new ControlTool(new Texture(Gdx.files.internal("Buttons/backButton.png")), 
 				new Rectangle(10, 406, 192, 64));
 	}
 	

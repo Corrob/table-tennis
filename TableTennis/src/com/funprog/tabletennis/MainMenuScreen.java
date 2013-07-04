@@ -68,15 +68,15 @@ public class MainMenuScreen implements Screen{
 		background = new Texture(Gdx.files.internal("background.png"));
 		logo = new Texture(Gdx.files.internal("logo.png"));
 		
-		startGame = new ControlTool(new Texture(Gdx.files.internal("startButton.png")), 
+		startGame = new ControlTool(new Texture(Gdx.files.internal("Buttons/startButton.png")), 
 				new Rectangle(304, 318, 192, 64));
-		controls = new ControlTool(new Texture(Gdx.files.internal("controlsButton.png")), 
+		controls = new ControlTool(new Texture(Gdx.files.internal("Buttons/controlsButton.png")), 
 				new Rectangle(304, 242, 192, 64));
-		options = new ControlTool(new Texture(Gdx.files.internal("optionsButton.png")), 
+		options = new ControlTool(new Texture(Gdx.files.internal("Buttons/optionsButton.png")), 
 				new Rectangle(304, 166, 192, 64));
-		highScores = new ControlTool(new Texture(Gdx.files.internal("highScoresButton.png")), 
+		highScores = new ControlTool(new Texture(Gdx.files.internal("Buttons/highScoresButton.png")), 
 				new Rectangle(304, 90, 192, 64));
-		credits = new ControlTool(new Texture(Gdx.files.internal("creditsButton.png")), 
+		credits = new ControlTool(new Texture(Gdx.files.internal("Buttons/creditsButton.png")), 
 				new Rectangle(304, 14, 192, 64));
 	}
 	
@@ -97,7 +97,7 @@ public class MainMenuScreen implements Screen{
 	}
 	
 	/**
-	 * Checks the touch screen and mouse input, then responds
+	 * Checks the touch screen or mouse input, then responds
 	 */
 	private void getInput() {
 		// Loop through each touch input
